@@ -1,13 +1,13 @@
 # Experiments on wide-field dataset
-- This python notebook contains the code to repeat all our results on wide-field dataset.
+- This python notebook contains the code to repeat all results using wide-field dataset from [1].
+- This demo can be re-run using [this notebook](Experiments_Wide_Field.ipynb)
 
 
+### Step 0: Import python modules
+- The below given segments will import packages needed for this demo
 
-### Step 0: Import all modules
-- The below given segment of code will import all packaged needed for this demo
 
-
-```python
+```
 from itertools import accumulate
 import seaborn as sns
 import pandas as pd
@@ -24,13 +24,15 @@ from ipywidgets import IntProgress
 ```
 
 ### Step 1: Download and check the dataset
-- This dataset has been made available at 
-- Download the dataset from here and extract it to wide_field_imaging/dataset/
-- This data set has responses collected from five different mice
+- This dataset has been made available through figshare
+- Download the dataset from [here](https://figshare.com/s/ca910ddc194208e66e17) 
+- The dataset consists of five zipfiles.
+- The contents of M1.zip should be extracted and placed as  "\[root_of_this_repo\]/wide_field_imaging/dataset/M1/". Similarly for other zip files.
+- The five zip files corresponds to responses collected from five different mice
 - The below given code checks if the dataset is downloaded properly and gives an overview of the different responses available for each mouse
 
 
-```python
+```
 for mouse in mice:
     print(mouse.value, end =":\t")
     for stimuli in get_stimuli_for_mice(mouse):
@@ -53,14 +55,13 @@ for mouse in mice:
     
 
 
-### Step 2: Train and test the neuronal responses using supervised classifier (Table 3)
+### Step 2: Train and test neuronal responses using supervised classifier (Table 3)
 - Four different types of classifier have been implemented
-- Step 1. Needs to be completed before running this step.
-- Results given in [1] are avaraged across different random initialization 
-- These results are given in Table 3 of the paper. The result may slightly vary due to avaeraging across random initialization.
+- Step 1. Needs to be verfied before running this step.
+- These results are given in Table 3 of the paper. The result may slightly vary from [1] due to averaging across random initialization. 
 
 
-```python
+```
 for mouse in tqdm(mice):
     for stimuli in get_stimuli_for_mice(mouse):
         acc = run_supervised_classification(mouse, stimuli, classifiers.GMM) #classifier.ANN - neural network classifier
@@ -87,11 +88,12 @@ for mouse in tqdm(mice):
 
 
 ### Step 3: Plot the boundraies predicted by the supervised classifier in Step 2 (Figs 2, 3 & 4)
-- In this step the classifiaction (misclassification) is shown by comparing with the retintopic boundaries and confusion matrix
-- See Section 2.1 and Figs 2, 3 & 4 in [1] for futher detials
+- In this step the classification ( or misclassification) is shown by comparing the results obtained in Step 2 with the retintopic boundaries
+- This step also prints confusion matrix
+- See Section 2.1 and Figs 2, 3 & 4 in [1] for further details
 
 
-```python
+```
 from IPython.display import Image, display
 
 Image(filename=plot_supervised_classification_result(mouse.M4, stimuli.Natural_Movies, classifiers.GMM)) 
@@ -101,18 +103,18 @@ Image(filename=plot_supervised_classification_result(mouse.M4, stimuli.Natural_M
 
 
     
-![png](examples/output_8_0.png)
+![png](example/output_8_0.png)
     
 
 
 
-### Step 5: Perform Semi-Supervised Classification (Table 5)
+### Step 5: Perform semi-supervised classification (Table 5)
 - In the step semi-supervised classifier is used to cluster the visual area responses
-- See Section 2.2 in [1] for futher detials
-- These results are given in Table 5 of the paper [1]. The result may slightly vary due to avaeraging across multiple random initialization.
+- See Section 2.2 in [1] for further details
+- These results are given in Table 5 of the paper [1]. The result may slightly vary from [1] due to averaging across multiple random initialization.
 
 
-```python
+```
 for mouse in tqdm(mice):
     for stimuli in get_stimuli_for_mice(mouse):
         acc = run_semi_supervised_classification(mouse, stimuli)
@@ -137,12 +139,12 @@ for mouse in tqdm(mice):
     
 
 
-### Step 6: Plot the boundraies predicted by the semi supervised classifier in Step 5 (Figs 5 & 6)
-- In this step the classifiaction (misclassification) is shown by comparing the semi-supervised result with the retintopic boundaries.
-- See Section 2.2 and Figs 5 & 6 in [1] for futher detials
+### Step 6: Plot the boundraies predicted by the semi-supervised classifier in Step 5 (Figs 5 & 6)
+- In this step the classification (or misclassification) is shown by comparing the semi-supervised result with the retintopic boundaries.
+- See Section 2.2 and Figs 5 & 6 in [1] for further details
 
 
-```python
+```
 from IPython.display import Image, display
 
 Image(filename=plot_semi_supervised_classification_result(mice.M4, stimuli.Natural_Movies),width=500) 
@@ -158,10 +160,10 @@ Image(filename=plot_semi_supervised_classification_result(mice.M4, stimuli.Natur
 
 
 ### Step 7: Compare resting state and  stimulus induced responses using supervised classifiers (Fig 7)¶
--See Section 2.3 of [1] for more detials of below given experiment.
+-See Section 2.3 of [1] for more details of below given experiment.
 
 
-```python
+```
 [stim, duration] = get_meta_info(mice.M4, stimuli.Natural_Movies)
 
 df = pd.DataFrame(columns = ['Trial_Number', 'Accuracy', 'Duration', 'Stimuli'])  
@@ -185,8 +187,25 @@ print(df)
     HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=12.0), HTML(value='')))
 
 
+    
+        Trial_Number   Accuracy  Duration                      Stimuli
+    0              0  83.560481       4.5                Resting_State
+    1              0  82.633535       4.5  Natural_Movies_Single_Trial
+    2              0  93.258994       4.5   Natural_Movies_Multi_Trial
+    3              1  83.292034       4.5                Resting_State
+    4              1  81.933737       4.5  Natural_Movies_Single_Trial
+    ..           ...        ...       ...                          ...
+    175            3  97.636747      54.0  Natural_Movies_Single_Trial
+    176            3  97.941905      54.0   Natural_Movies_Multi_Trial
+    177            4  94.536986      54.0                Resting_State
+    178            4  97.531204      54.0  Natural_Movies_Single_Trial
+    179            4  97.528910      54.0   Natural_Movies_Multi_Trial
+    
+    [180 rows x 4 columns]
 
-```python
+
+
+```
 ax = sns.lineplot(x="Duration", y="Accuracy",
              hue="Stimuli",style="Stimuli",markers=True,ci="sd", legend=False,
              data=df)
@@ -202,11 +221,17 @@ fig = ax.get_figure()
 fig.set_size_inches(8, 3)
 ```
 
-### Step 8: Compare resting state and  stimulus induced responses using semi- supervised classifiers (Fig 7)¶
--See Section 2.3 of [1] for more detials of below given experiment.
+
+    
+![png](examples/output_15_0.png)
+    
 
 
-```python
+### Step 8: Compare resting state and  stimulus induced responses using semi-supervised classifiers (Fig 7)¶
+-See Section 2.3 of [1] for more details of below given experiment.
+
+
+```
 [stim, duration] = get_meta_info(mice.M4, stimuli.Natural_Movies)
 
 df = pd.DataFrame(columns = ['Trial_Number', 'Accuracy', 'Duration', 'Stimuli'])  
@@ -222,12 +247,16 @@ for duration in tqdm(progressve_duration):
         df.loc[len(df)] = [trial, acc, duration, stimuli.Natural_Movies.value+"_Single_Trial"]
 
         acc = run_subset_semi_supervised_classification(mice.M4, stimuli.Natural_Movies, classifiers.GMM, float(duration), False)
-        df.loc[len(df)] = [trial, acc, duration, stimuliNatural_Movies.value+"_Multi_Trial"]
+        df.loc[len(df)] = [trial, acc, duration, stimuli.Natural_Movies.value+"_Multi_Trial"]
 print(df)
 ```
 
 
-```python
+    HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=12.0), HTML(value='')))
+
+
+
+```
 ax = sns.lineplot(x="Duration", y="Accuracy",
              hue="Stimuli",style="Stimuli",markers=True,ci="sd", legend=False,
              data=df)
@@ -244,29 +273,48 @@ fig.set_size_inches(8, 3)
 ```
 
 ### Step 9: Compute correlations in reponses from different areas (Fig 8)
-- see Section 3 of [1] for more details
+- see Section 3 of [1] for more details on the figure obtained below
 
 
-```python
+```
 from IPython.display import Image, display
 
 Image(filename=plot_reponse_correlation(mice.M4, stimuli.Natural_Movies), width=400) 
 ```
 
+
+
+
+    
+![png](examples/output_20_0.png)
+    
+
+
+
 ### Step 10: 2D representation of wide-field responses (Fig 9)
-see Section 3 or Fig 9 of [1] for more details
+- see Section 3 or Fig 9 of [1] for more details on the figure obtained below.
+- Note: embeddings on tSNE plots vary slightly based on random initialization 
 
 
-```python
+```
 from IPython.display import Image, display
 
 Image(filename=plot_tSNE(mice.M4, stimuli.Natural_Movies), width=600)
 ```
 
+
+
+
+    
+![png](examples/output_22_0.png)
+    
+
+
+
 ### References
 [1] Mari Ganesh Kumar, Ming Hu, Aadhirai R, Mriganka Sur, and Hema A Murthy. “’Functional Parcellation of Mouse Visual Cortex Using Statistical Techniques Reveals Response-Dependent Clustering of Cortical Processing Areas”. In: PLOS Computational Biology (2020). Accepted For Publication
 
 
-```python
+```
 
 ```
