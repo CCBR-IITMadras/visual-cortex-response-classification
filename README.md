@@ -7,8 +7,8 @@ The visual cortex has a prominent role in the processing of visual information b
 
 ## Organization
 - As mentioned in the abstract, we show results on two datasets, one collected using two-photo imaging and another collected using wide-field imaging.
-- The demo of our code for repeating our results using the two-photon imaging can be found [here](two-photon/ReadMe.md)
-- The demo of our code for repeating our results using the wide-field imaging can be found [here](wide-field-imaging/ReadMe.md)
+- The **demo of our code** for repeating our results using the **two-photon imaging can be found [here](two-photon/ReadMe.md)**
+- The **demo of our code** for repeating our results using the **wide-field imaging can be found [here](wide-field-imaging/ReadMe.md)**
 
 ## Requirements
 
