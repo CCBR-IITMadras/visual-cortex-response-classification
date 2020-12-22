@@ -174,7 +174,7 @@ Image(filename=plot_confusion_mat(cre_lines[0], stimuli_set[2], classifiers.GMM)
 
 
     
-![png](output_8_0.png)
+![png](examples/output_8_0.png)
     
 
 
@@ -242,7 +242,7 @@ fig.set_size_inches(8, 3)
 
 
     
-![png](output_11_0.png)
+![png](examples/output_11_0.png)
     
 
 
@@ -260,7 +260,7 @@ Image(filename=plot_reponse_correlation(cre_lines[0], stimuli_set[2]), width=400
 
 
     
-![png](output_13_0.png)
+![png](examples/output_13_0.png)
     
 
 
@@ -279,7 +279,7 @@ Image(filename=plot_tSNE(cre_lines[0], stimuli_set[2]), width=600)
 
 
     
-![png](output_15_0.png)
+![png](examples/output_15_0.png)
     
 
 
