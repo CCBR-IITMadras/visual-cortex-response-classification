@@ -78,7 +78,7 @@ function [file_name] = plot_tSNE(data_location, result_location)
     f=figure();
     hold on;
     
-    tsne_Data = tsne(zscore(rd_test_data),'Exaggeration',200,'Perplexity',200);
+    tsne_Data = tsne(zscore(rd_test_data),'Exaggeration',2000,'Perplexity',2000);
 
     s=[];   
     for i=1:length(area_names)
