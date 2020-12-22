@@ -7,7 +7,7 @@
 - The below given segments will import packages needed for this demo
 
 
-```
+```python
 from itertools import accumulate
 import seaborn as sns
 import pandas as pd
@@ -32,7 +32,7 @@ from ipywidgets import IntProgress
 - The below given code checks if the dataset is downloaded properly and gives an overview of the different responses available for each mouse
 
 
-```
+```python
 for mouse in mice:
     print(mouse.value, end =":\t")
     for stimuli in get_stimuli_for_mice(mouse):
@@ -61,7 +61,7 @@ for mouse in mice:
 - These results are given in Table 3 of the paper. The result may slightly vary from [1] due to averaging across random initialization. 
 
 
-```
+```python
 for mouse in tqdm(mice):
     for stimuli in get_stimuli_for_mice(mouse):
         acc = run_supervised_classification(mouse, stimuli, classifiers.GMM) #classifier.ANN - neural network classifier
@@ -93,7 +93,7 @@ for mouse in tqdm(mice):
 - See Section 2.1 and Figs 2, 3 & 4 in [1] for further details
 
 
-```
+```python
 from IPython.display import Image, display
 
 Image(filename=plot_supervised_classification_result(mouse.M4, stimuli.Natural_Movies, classifiers.GMM)) 
@@ -103,7 +103,7 @@ Image(filename=plot_supervised_classification_result(mouse.M4, stimuli.Natural_M
 
 
     
-![png](example/output_8_0.png)
+![png](examples/output_8_0.png)
     
 
 
@@ -114,7 +114,7 @@ Image(filename=plot_supervised_classification_result(mouse.M4, stimuli.Natural_M
 - These results are given in Table 5 of the paper [1]. The result may slightly vary from [1] due to averaging across multiple random initialization.
 
 
-```
+```python
 for mouse in tqdm(mice):
     for stimuli in get_stimuli_for_mice(mouse):
         acc = run_semi_supervised_classification(mouse, stimuli)
@@ -144,7 +144,7 @@ for mouse in tqdm(mice):
 - See Section 2.2 and Figs 5 & 6 in [1] for further details
 
 
-```
+```python
 from IPython.display import Image, display
 
 Image(filename=plot_semi_supervised_classification_result(mice.M4, stimuli.Natural_Movies),width=500) 
@@ -163,7 +163,7 @@ Image(filename=plot_semi_supervised_classification_result(mice.M4, stimuli.Natur
 -See Section 2.3 of [1] for more details of below given experiment.
 
 
-```
+```python
 [stim, duration] = get_meta_info(mice.M4, stimuli.Natural_Movies)
 
 df = pd.DataFrame(columns = ['Trial_Number', 'Accuracy', 'Duration', 'Stimuli'])  
@@ -205,7 +205,7 @@ print(df)
 
 
 
-```
+```python
 ax = sns.lineplot(x="Duration", y="Accuracy",
              hue="Stimuli",style="Stimuli",markers=True,ci="sd", legend=False,
              data=df)
@@ -231,7 +231,7 @@ fig.set_size_inches(8, 3)
 -See Section 2.3 of [1] for more details of below given experiment.
 
 
-```
+```python
 [stim, duration] = get_meta_info(mice.M4, stimuli.Natural_Movies)
 
 df = pd.DataFrame(columns = ['Trial_Number', 'Accuracy', 'Duration', 'Stimuli'])  
@@ -256,7 +256,7 @@ print(df)
 
 
 
-```
+```python
 ax = sns.lineplot(x="Duration", y="Accuracy",
              hue="Stimuli",style="Stimuli",markers=True,ci="sd", legend=False,
              data=df)
@@ -276,7 +276,7 @@ fig.set_size_inches(8, 3)
 - see Section 3 of [1] for more details on the figure obtained below
 
 
-```
+```python
 from IPython.display import Image, display
 
 Image(filename=plot_reponse_correlation(mice.M4, stimuli.Natural_Movies), width=400) 
@@ -296,7 +296,7 @@ Image(filename=plot_reponse_correlation(mice.M4, stimuli.Natural_Movies), width=
 - Note: embeddings on tSNE plots vary slightly based on random initialization 
 
 
-```
+```python
 from IPython.display import Image, display
 
 Image(filename=plot_tSNE(mice.M4, stimuli.Natural_Movies), width=600)
