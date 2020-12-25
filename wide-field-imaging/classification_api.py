@@ -15,6 +15,7 @@ import matlab.engine
 
 eng.addpath ('./matlab_src', nargout= 0 )
 eng.addpath ('./matlab_src/classifiers', nargout= 0 )
+eng.addpath ('./matlab_src/LDA', nargout= 0 )
 eng.addpath ('./matlab_src/bayes', nargout= 0 )
 eng.addpath ('./matlab_src/plots', nargout= 0 )
 

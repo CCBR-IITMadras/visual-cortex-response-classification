@@ -5,6 +5,7 @@ from allen_api import get_session
 import matlab.engine
 eng = matlab.engine.start_matlab()
 eng.addpath ('./matlab_src/plots', nargout= 0 )
+eng.addpath ('./matlab_src/LDA', nargout= 0 )
 eng.addpath ('./matlab_src', nargout= 0 )
 
 

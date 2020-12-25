@@ -1,6 +1,6 @@
 %
 % Copyright (c) 2015, Yarpiz (www.yarpiz.com)
-% All rights reserved. Please read the "license.txt" for license terms.
+% All rights reserved. Please read the "license.txt" in this folder for license terms.
 %
 % Project Code: YPML114
 % Project Title: Implementation of Linear Discriminant Analysis in MATLAB
